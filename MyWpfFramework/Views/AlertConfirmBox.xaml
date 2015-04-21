@@ -1,0 +1,186 @@
+﻿<UserControl x:Class="MyWpfFramework.Views.AlertConfirmBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:MVVM="clr-namespace:MyWpfFramework.Common.MVVM;assembly=MyWpfFramework.Common"
+             MVVM:VisualStates.CurrentState="{Binding AlertConfirmBoxModel.CurrentState}"             
+             mc:Ignorable="d" FlowDirection="RightToLeft"             
+             d:DesignHeight="300" d:DesignWidth="300">
+    <VisualStateManager.VisualStateGroups>
+        <VisualStateGroup x:Name="States">
+            <VisualState x:Name="FlashAnim">
+                <Storyboard>
+                    <DoubleAnimation 
+                        Storyboard.TargetProperty="(UIElement.Opacity)" 
+                        Storyboard.TargetName="brdMain"                
+                        From="0.0" To="1.0" Duration="0:0:0.2"/>
+                </Storyboard>
+            </VisualState>
+            <VisualState x:Name="HideAnim">
+                <Storyboard>
+                    <DoubleAnimation 
+                        Storyboard.TargetProperty="(UIElement.Opacity)" 
+                        Storyboard.TargetName="brdMain"                
+                        From="1.0" To="0.0" Duration="0:0:0.2"/>
+
+                    <ObjectAnimationUsingKeyFrames 
+                        Storyboard.TargetProperty="(UIElement.Visibility)" 
+                        Storyboard.TargetName="brdMain">
+                        <DiscreteObjectKeyFrame KeyTime="0:0:0.3">
+                            <DiscreteObjectKeyFrame.Value>
+                                <Visibility>Collapsed</Visibility>
+                            </DiscreteObjectKeyFrame.Value>
+                        </DiscreteObjectKeyFrame>
+                    </ObjectAnimationUsingKeyFrames>
+                </Storyboard>
+            </VisualState>
+            <VisualState x:Name="Normal"/>
+        </VisualStateGroup>
+    </VisualStateManager.VisualStateGroups>
+
+    <Border Background="#90000000" Visibility="{Binding AlertConfirmBoxModel.IsVisible, Mode=TwoWay}">
+        <Border BorderBrush="#be0c0c" Name="brdMain"                     
+            CornerRadius="3" Margin="1" VerticalAlignment="Center"
+            HorizontalAlignment="Center" MinWidth="400"           
+            BorderThickness="1">
+            <Border.BitmapEffect>
+                <DropShadowBitmapEffect Color="Black" Opacity="0.5" Direction="270" ShadowDepth="0.7" />
+            </Border.BitmapEffect>
+            <Grid Margin="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="48" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="8" />
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+
+                <Border Grid.Row="0" Grid.ColumnSpan="2" >
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Color="#ed3b3b" Offset="0" />
+                            <GradientStop  Color="#e33131" Offset="0.5"/>
+                            <GradientStop Color="#be0c0c" Offset="1" />
+                        </LinearGradientBrush>
+                    </Border.Background>
+                </Border>
+
+                <Border Grid.Row="1" Grid.ColumnSpan="2" Grid.RowSpan="2">
+                    <Border.Background>
+                        <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                            <GradientStop Color="#ffdccf" Offset="0" />
+
+                            <GradientStop Color="White" Offset="1" />
+                        </LinearGradientBrush>
+                    </Border.Background>
+                </Border>
+
+                <Image Source="Images/warning_48.png" 
+               Grid.Row="1" Grid.RowSpan="2"  HorizontalAlignment="Center"
+               VerticalAlignment="Top" Height="32" Width="32" 
+                   Margin="5,20,5,5"
+               Stretch="UniformToFill"  />
+
+                <Grid Grid.Column="1" Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Grid.Row="0"
+                    Margin="2"
+                    Text="{Binding AlertConfirmBoxModel.ErrorTitle}" 
+                    Foreground="#be0c0c" 
+                    FontWeight="Bold" />
+
+                    <ListBox  Grid.Row="1"           
+                    ItemsSource="{Binding AlertConfirmBoxModel.Errors}"
+                    Margin="2" Background="Transparent" BorderThickness="0">
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <Image Margin="2" Source="Images/info-16.png" />
+                                    <TextBlock Margin="2" TextWrapping="Wrap" MaxWidth="500" Text="{Binding}" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                        <ListBox.ContextMenu>
+                            <ContextMenu>
+                                <MenuItem Header="کپی در حافظه" Command="{Binding CopyCommand}">
+                                    <MenuItem.Icon>
+                                        <Image Source="Images/page_copy.png" Width="16" Height="16" Stretch="UniformToFill" />
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                                <MenuItem Header="ذخیره در فایل" Command="{Binding SaveCommand}">
+                                    <MenuItem.Icon>
+                                        <Image Source="Images/saveHS.png" Width="16" Height="16" Stretch="UniformToFill"/>
+                                    </MenuItem.Icon>
+                                </MenuItem>
+                            </ContextMenu>
+                        </ListBox.ContextMenu>
+                    </ListBox>
+
+                </Grid>
+
+                <StackPanel 
+            HorizontalAlignment="Right"
+            Grid.Column="1"
+            Orientation="Horizontal" Grid.Row="2">
+                    <Border Width="60" Height="20" CornerRadius="3" 
+                        BorderThickness="1" Name="brd1"
+                        VerticalAlignment="Center" Margin="2"
+                        HorizontalAlignment="Center"                    
+                        Visibility="{Binding AlertConfirmBoxModel.ShowCancel}"
+                        BorderBrush="#4eb417" >
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                <GradientStop Color="#67db20" Offset="0" />
+                                <GradientStop  Color="#47b416" Offset="0.5"/>
+                                <GradientStop Color="#40ae13" Offset="1" />
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                            <Image Margin="1"
+                            Source="Images/cancel_48.png" 
+                            Width="16" Height="16" Stretch="UniformToFill" />
+                            <TextBlock HorizontalAlignment="Center"  VerticalAlignment="Center" Margin="1"
+                                     Foreground="White">
+                                <Hyperlink
+                                    Command="{Binding CancelCommand}"                                    
+                                    Foreground="White">انصراف</Hyperlink>
+                            </TextBlock>
+                        </StackPanel>
+                    </Border>
+                    <Border Width="60" Height="20" CornerRadius="3" 
+                        BorderThickness="1" Name="brd2"
+                        VerticalAlignment="Center" Margin="2"
+                        HorizontalAlignment="Center"        
+                        Visibility="{Binding AlertConfirmBoxModel.ShowConfirm}"
+                        BorderBrush="#4eb417" >
+                        <Border.Background>
+                            <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                <GradientStop Color="#67db20" Offset="0" />
+                                <GradientStop  Color="#47b416" Offset="0.5"/>
+                                <GradientStop Color="#40ae13" Offset="1" />
+                            </LinearGradientBrush>
+                        </Border.Background>
+                        <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                            <Image Source="Images/tick_white.png" Margin="1" />
+
+                            <TextBlock HorizontalAlignment="Center"  Margin="1"
+                                 Foreground="White"
+                                 VerticalAlignment="Center">
+                            <Hyperlink
+                                Command="{Binding ConfirmCommand}"
+                                Foreground="White">تائید</Hyperlink>
+                            </TextBlock>
+                        </StackPanel>
+                    </Border>
+
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Border>
+</UserControl>

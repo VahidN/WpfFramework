@@ -1,0 +1,70 @@
+﻿<Page x:Class="MyWpfFramework.Views.Login.LoginPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      mc:Ignorable="d" 
+      xmlns:vm="clr-namespace:MyWpfFramework.Infrastructure.ViewModels.Login;assembly=MyWpfFramework.Infrastructure"
+      Language="fa-IR"
+      xmlns:MVVM="clr-namespace:MyWpfFramework.Common.MVVM;assembly=MyWpfFramework.Common"
+      FlowDirection="RightToLeft" FontFamily="Tahoma" FontSize="11"
+      d:DesignHeight="300" d:DesignWidth="300"
+	  Title="ورود به سیستم">
+    <GroupBox Height="Auto" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="5">
+        <GroupBox.HeaderTemplate>
+            <DataTemplate>
+                <TextBlock Text="ورود به سیستم" FontWeight="Bold" />
+            </DataTemplate>
+        </GroupBox.HeaderTemplate>
+
+        <Grid x:Name="LayoutRoot" Margin="2" FocusManager.FocusedElement="{Binding ElementName=UserName}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="Auto" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Row="0" Margin="3" 
+                   Grid.Column="0"                       
+                   HorizontalAlignment="Right"
+                   Text="نام کاربری: ">
+            </TextBlock>
+            <TextBox x:Name="UserName" 
+                 Grid.Row="0"  Margin="3" 
+                 FlowDirection="RightToLeft"
+                 HorizontalAlignment="Left" 
+                 Grid.Column="1"  
+                 Text="{Binding LoginPageData.UserName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}"
+                 Width="150" TabIndex="0">
+            </TextBox>
+            <TextBlock Grid.Row="1"  Margin="3" 
+                   HorizontalAlignment="Right"
+                   Grid.Column="0"
+                   Text="گذر واژه: ">
+            </TextBlock>
+            <PasswordBox x:Name="Password" 
+                     HorizontalAlignment="Left"
+                     FlowDirection="LeftToRight"
+                     Grid.Row="1"  Margin="3" 
+                     Grid.Column="1"  
+					 MVVM:PasswordBoxAssistant.BindPassword="true"  
+					 MVVM:PasswordBoxAssistant.BoundPassword=
+							"{Binding Path=LoginPageData.Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged,
+												 NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}"                                           
+                     Width="150" TabIndex="1" >
+            </PasswordBox>
+
+            <Button x:Name="OKButton" Content="ورود" 
+                Width="75" Height="23" 
+                HorizontalAlignment="Left" 
+                VerticalAlignment="Top" IsDefault="True"
+                Command="{Binding DoLogin}"
+                Margin="2" Grid.Row="3"  Grid.Column="1" TabIndex="2" />
+        </Grid>
+    </GroupBox>
+</Page>

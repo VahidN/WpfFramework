@@ -1,0 +1,30 @@
+﻿<Controls:MetroWindow x:Class="MyWpfFramework.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        FontFamily="Tahoma" Language="fa-IR"
+        xmlns:CustomControls="clr-namespace:MyWpfFramework.Infrastructure.Core;assembly=MyWpfFramework.Infrastructure"              
+        xmlns:Views="clr-namespace:MyWpfFramework.Views" WindowState="Maximized"
+        Title="فریم ورک دبلیو پی اف"  ShowIconOnTitleBar="True" ResizeMode="CanResizeWithGrip"
+        WindowStartupLocation="CenterScreen" Height="350" Width="525">    
+    <Grid>
+        <Grid x:Name="LayoutRoot" FlowDirection="RightToLeft">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="70" />
+                <ColumnDefinition Width="*" />                
+            </Grid.ColumnDefinitions>
+            <Views:MainMenu Grid.Column="0" />
+            <CustomControls:FrameFactory
+                    x:Name="ActiveScreen"            
+                    HorizontalContentAlignment="Stretch"
+                    VerticalContentAlignment="Stretch"     
+                    NavigationUIVisibility="Hidden"            
+                    Grid.Column="1" 
+                    Margin="0" />            
+        </Grid>
+        <Views:AlertConfirmBox />
+    </Grid>
+</Controls:MetroWindow>
