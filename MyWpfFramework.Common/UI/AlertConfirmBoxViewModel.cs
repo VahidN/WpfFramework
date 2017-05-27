@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
-using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.CommandWpf;
 using GalaSoft.MvvmLight.Messaging;
 using MyWpfFramework.Common.MVVM;
 using MyWpfFramework.Common.Toolkit;
@@ -81,19 +81,19 @@ namespace MyWpfFramework.Common.UI
 
         #region Methods (10)
 
-        // Private Methods (10) 
+        // Private Methods (10)
 
         void cancelCommand()
         {
             Messenger.Default.Send("Cancelled", "AlertSysResult");
-            AlertConfirmBoxModel.CurrentState = "HideAnim"; //animation            
+            AlertConfirmBoxModel.CurrentState = "HideAnim"; //animation
             startHide();
         }
 
         void confirmCommand()
         {
             Messenger.Default.Send("Confirmed", "AlertSysResult");
-            AlertConfirmBoxModel.CurrentState = "HideAnim"; //animation            
+            AlertConfirmBoxModel.CurrentState = "HideAnim"; //animation
             startHide();
         }
 

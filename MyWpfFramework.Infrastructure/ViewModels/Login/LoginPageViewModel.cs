@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
-using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.CommandWpf;
 using MyWpfFramework.Common.Config;
 using MyWpfFramework.Common.MVVM;
 using MyWpfFramework.Common.UI;

@@ -1,4 +1,4 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿using GalaSoft.MvvmLight.CommandWpf;
 using MyWpfFramework.Common.Crypto;
 using MyWpfFramework.Common.MVVM;
 using MyWpfFramework.DataLayer.Context;
@@ -48,7 +48,7 @@ namespace MyWpfFramework.Infrastructure.ViewModels.UserInfo
 
         /// <summary>
         /// فعال و غیرفعال کردن دکمه ذخیره سازی
-        /// </summary>        
+        /// </summary>
         private bool canDoSave()
         {
             return ViewModelContextHasChanges;
@@ -75,7 +75,7 @@ namespace MyWpfFramework.Infrastructure.ViewModels.UserInfo
 
         /// <summary>
         /// به روز رسانی اطلاعات سراسری برنامه
-        /// </summary>        
+        /// </summary>
         private void updateAppContext(User user)
         {
             _appContextService.CurrentUser.UserName = user.UserName;

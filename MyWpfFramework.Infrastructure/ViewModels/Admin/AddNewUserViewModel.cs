@@ -1,6 +1,6 @@
 ﻿using System.Collections.ObjectModel;
 using System.Linq;
-using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.CommandWpf;
 using MyWpfFramework.Common.Crypto;
 using MyWpfFramework.Common.MVVM;
 using MyWpfFramework.DataLayer.Context;
@@ -80,7 +80,7 @@ namespace MyWpfFramework.Infrastructure.ViewModels.Admin
         /// <summary>
         /// فعال و غیرفعال سازی خودکار دکمه ثبت
         /// این متد به صورت خودکار توسط RelayCommand کنترل می‌شود
-        /// </summary>        
+        /// </summary>
         private bool canDoSave()
         {
             // آیا در حین نمایش صفحه‌ای دیگر باید به کاربر پیغام داد که اطلاعات ذخیره نشده‌ای وجود دارد؟

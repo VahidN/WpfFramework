@@ -1,16 +1,18 @@
 ﻿using System;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using MyWpfFramework.Common.WpfValidation;
-using PropertyChanged;
 
 namespace MyWpfFramework.DomainClasses
 {
     /// <summary>
     /// تمام کلاس‌های دومین برنامه از این کلاس پایه مشتق خواهند شد
     /// </summary>
-    [ImplementPropertyChanged] // AOP
-    public abstract class BaseEntity : DataErrorInfoBase //پیاده سازی خودکار سیستم اعتبارسنجی یکپارچه
+    // AOP: All classes that have INotifyPropertyChanged will have notification code injected into property sets.
+    public abstract class BaseEntity : DataErrorInfoBase, INotifyPropertyChanged //پیاده سازی خودکار سیستم اعتبارسنجی یکپارچه
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public int Id { get; set; }
 
         [Required(ErrorMessage = "تاریخ ایجاد خالی است")]

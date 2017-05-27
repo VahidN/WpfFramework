@@ -1,4 +1,4 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿using GalaSoft.MvvmLight.CommandWpf;
 using MyWpfFramework.Common.MVVM;
 using MyWpfFramework.Infrastructure.Core;
 using MyWpfFramework.ServiceLayer.Contracts;
@@ -10,9 +10,8 @@ namespace MyWpfFramework.Infrastructure.ViewModels
     /// </summary>
     public class MainMenuViewModel : BaseViewModel
     {
-        #region Constructors (1)
-
         readonly IAppContextService _appContextService;
+
         /// <summary>
         /// سیستم راهبری برنامه در اینجا مدیریت می‌شود
         /// </summary>
@@ -23,20 +22,11 @@ namespace MyWpfFramework.Infrastructure.ViewModels
             DoNavigate = new RelayCommand<string>(doNavigate);
         }
 
-        #endregion Constructors
-
-        #region Properties (1)
-
         /// <summary>
         /// رخدادهای کلیک بر روی دکمه‌های منوی اصلی برنامه را دریافت می‌کند
         /// </summary>
         public RelayCommand<string> DoNavigate { set; get; }
 
-        #endregion Properties
-
-        #region Methods (1)
-
-        // Private Methods (1) 
 
         /// <summary>
         /// هدایت کاربر به آدرسی خاص
@@ -55,8 +45,6 @@ namespace MyWpfFramework.Infrastructure.ViewModels
                 Redirect.To(url);
             }
         }
-
-        #endregion Methods
 
         /// <summary>
         /// آیا در حین نمایش صفحه‌ای دیگر باید به کاربر پیغام داد که اطلاعات ذخیره نشده‌ای وجود دارد؟

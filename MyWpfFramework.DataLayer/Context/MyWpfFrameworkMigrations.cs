@@ -22,7 +22,7 @@ namespace MyWpfFramework.DataLayer.Context
 
         /// <summary>
         /// در اینجا کار تعریف ایندکس‌های منحصربفرد و ذخیره سازی اطلاعات اولیه برنامه انجام می‌شوند
-        /// </summary>        
+        /// </summary>
         protected override void Seed(MyWpfFrameworkContext context)
         {
             addRolesAndAdmin(context);
@@ -38,13 +38,13 @@ namespace MyWpfFramework.DataLayer.Context
 
         /// <summary>
         /// در اولین باری که دیتابیس ایجاد می‌شود، یک کاربر ادمین جهت ورود به سیستم نیز افزوده خواهد شد
-        /// </summary>        
+        /// </summary>
         private static void addRolesAndAdmin(MyWpfFrameworkContext context)
         {
             var user1 = new User
             {
                 FriendlyName = "Admin",
-                Password = "123456".SHA1Hash(),                
+                Password = "123456".SHA1Hash(),
                 UserName = "Admin",
                 IsActive = true,
                 Role = new SystemRole

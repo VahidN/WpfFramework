@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 using System.Windows;
 using PropertyChanged;
 
@@ -7,9 +8,11 @@ namespace MyWpfFramework.Common.UI
     /// <summary>
     /// اطلاعات آلرت باکس برنامه
     /// </summary>
-    [ImplementPropertyChanged] // AOP
-    public class AlertConfirmBoxModel
+    // AOP: All classes that have INotifyPropertyChanged will have notification code injected into property sets.
+    public class AlertConfirmBoxModel : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         /// <summary>
         /// وضعیت جاری
         /// </summary>

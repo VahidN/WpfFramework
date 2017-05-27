@@ -1,12 +1,12 @@
 ﻿<Page x:Class="MyWpfFramework.Views.Admin.AddNewUser"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
       mc:Ignorable="d" FlowDirection="RightToLeft"
       xmlns:MVVM="clr-namespace:MyWpfFramework.Common.MVVM;assembly=MyWpfFramework.Common"
       d:DesignHeight="300" d:DesignWidth="300"
-	Title="AddNewUser">
+      Title="AddNewUser">
     <ScrollViewer Margin="0,0,0,0" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
         <Grid Margin="5" x:Name="panelContent">
             <Grid.RowDefinitions>
@@ -14,14 +14,14 @@
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <StackPanel Grid.Row="0">
-                <TextBlock Text="مدیریت کاربران" Margin="5" FontFamily="/Resources/irsans.ttf#Iranian Sans"						   
-						   FontSize="23" FontWeight="Bold"/>
-                <TextBlock Margin="5" 
-				               Text="لطفا اطلاعات کاربرانی را که مجاز به استفاده از امکانات برنامه هستند را وارد نمائید." 
-				               TextWrapping="Wrap" />
+                <TextBlock Text="مدیریت کاربران" Margin="5" FontFamily="/Resources/irsans.ttf#Iranian Sans"
+                           FontSize="23" FontWeight="Bold"/>
+                <TextBlock Margin="5"
+                           Text="لطفا اطلاعات کاربرانی را که مجاز به استفاده از امکانات برنامه هستند را وارد نمائید."
+                           TextWrapping="Wrap" />
             </StackPanel>
-            <GroupBox Height="Auto" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"                          
-                          Margin="5,20,5,0">
+            <GroupBox Height="Auto" Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
+                      Margin="5,20,5,0">
                 <GroupBox.HeaderTemplate>
                     <DataTemplate>
                         <TextBlock Text="افزودن حساب‌های کاربری" FontWeight="Bold" />
@@ -35,9 +35,9 @@
 
                     <StackPanel Grid.Row="0" Orientation="Horizontal">
                         <Button Style="{DynamicResource MetroCircleButtonStyle}"
-                            		Height="55" Command="{Binding DoAddNew}"
-                            		Width="55" 
-                            		VerticalAlignment="Top">
+                                Height="55" Command="{Binding DoAddNew}"
+                                Width="55"
+                                VerticalAlignment="Top">
                             <Rectangle Width="28" Height="17.25">
                                 <Rectangle.Fill>
                                     <VisualBrush Stretch="Fill"	Visual="{StaticResource appbar_add}" />
@@ -46,9 +46,9 @@
                         </Button>
 
                         <Button Style="{DynamicResource MetroCircleButtonStyle}"
-                            		Height="55" Command="{Binding DoSave}"
-                            		Width="55" 
-                            		VerticalAlignment="Top">
+                                Height="55" Command="{Binding DoSave}"
+                                Width="55"
+                                VerticalAlignment="Top">
                             <Rectangle Width="28" Height="17.25">
                                 <Rectangle.Fill>
                                     <VisualBrush Stretch="Fill" Visual="{StaticResource appbar_save}" />
@@ -80,12 +80,12 @@
                                     <GridViewColumn Width="130" Header="کلمه عبور">
                                         <GridViewColumn.CellTemplate>
                                             <DataTemplate>
-                                                <PasswordBox Grid.Column="1" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="3" 
-										             Name="passwordTextBox" 
-										             MVVM:PasswordBoxAssistant.BindPassword="true"                                                               
-										             MVVM:PasswordBoxAssistant.BoundPassword=
-											                "{Binding Path=Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}"                      
-										             VerticalAlignment="Center" Width="110" FlowDirection="LeftToRight" />
+                                                <PasswordBox Grid.Column="1" Grid.Row="1" Height="23" HorizontalAlignment="Left" Margin="3"
+                                                             Name="passwordTextBox"
+                                                             MVVM:PasswordBoxAssistant.BindPassword="true"
+                                                             MVVM:PasswordBoxAssistant.BoundPassword=
+                                                             "{Binding Path=Password, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged, NotifyOnValidationError=True, ValidatesOnDataErrors=True, ValidatesOnExceptions=True}"
+                                                             VerticalAlignment="Center" Width="110" FlowDirection="LeftToRight" />
                                             </DataTemplate>
                                         </GridViewColumn.CellTemplate>
                                     </GridViewColumn>

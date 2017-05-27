@@ -1,12 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using PropertyChanged;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MyWpfFramework.DomainClasses
 {
-    [ImplementPropertyChanged] // AOP
+    // AOP: All classes that have INotifyPropertyChanged will have notification code injected into property sets.
     [ComplexType]
-    public class SystemRole
+    public class SystemRole : INotifyPropertyChanged
     {
+        public event PropertyChangedEventHandler PropertyChanged;
+
         public bool IsAdmin { set; get; }
         public bool CanAddNewUser { set; get; }
 
