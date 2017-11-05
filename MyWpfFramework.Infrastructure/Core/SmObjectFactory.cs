@@ -4,7 +4,6 @@ using MyWpfFramework.DataLayer.Context;
 using MyWpfFramework.ServiceLayer;
 using MyWpfFramework.ServiceLayer.Contracts;
 using StructureMap;
-using StructureMap.Graph;
 using System;
 using System.Threading;
 
@@ -41,7 +40,7 @@ namespace MyWpfFramework.Infrastructure.Core
 
                 //علت سینگلتون تعریف شدن وهله در اینجا:
                 //هربار فقط یک کاربر در برنامه دسکتاپ وارد می‌شود
-                //همچنین نیاز داریم اطلاعات کاربر لاگین شده را به صورت سراسری 
+                //همچنین نیاز داریم اطلاعات کاربر لاگین شده را به صورت سراسری
                 //جهت اعتبارسنجی‌های ویژه صفحات مختلف نگه داری کنیم
                 cfg.For<IAppContextService>().Singleton().Use<AppContextService>();
 
@@ -58,9 +57,10 @@ namespace MyWpfFramework.Infrastructure.Core
                     scan.AssemblyContainingType<IUsersService>();
                     scan.AssemblyContainingType<IConfigSetGet>();
 
-                    // Add all types that implement IView into the container, 
+                    // Add all types that implement IView into the container,
                     // and name each specific type by the short type name.
-                    scan.AddAllTypesOf<IViewModel>().NameBy(type => type.Name);
+                    scan.With(new SingletonConvention<IViewModel>()); // The lifetime of added ViewModels is Transient. Use this method to change them.
+                    scan.AddAllTypesOf<IViewModel>().NameBy(type => type.Name); // with default lifecycle => (Transient)
 
                     // این نکته حجم زیادی از کدهای تکراری تعاریف اولیه را کاهش می‌دهد
                     // Wire up all I`Test` interfaces with `Test` classes.
