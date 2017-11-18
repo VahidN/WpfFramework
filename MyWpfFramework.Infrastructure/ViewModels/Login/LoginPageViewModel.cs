@@ -78,8 +78,8 @@ namespace MyWpfFramework.Infrastructure.ViewModels.Login
                 // ثبت نام کاربری او در فایل کانفیگ برنامه
                 _configSetGet.SetConfigData("LastLoginName", LoginPageData.UserName);
 
-                // هدایت به صفحه خوش آمد گویی
-                Redirect.ToWelcomePage();
+                // هدایت به صفحه خوش آمد گویی به همراه ارسال كوئري استرينگ
+                Redirect.ToWelcomePage(queryStringData: "... Hello World ...");
             }
             else
             {

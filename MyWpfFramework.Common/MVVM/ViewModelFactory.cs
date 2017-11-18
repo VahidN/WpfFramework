@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Windows;
+﻿using System.Windows;
 using StructureMap;
 
 namespace MyWpfFramework.Common.MVVM
@@ -11,16 +10,19 @@ namespace MyWpfFramework.Common.MVVM
     {
         private readonly FrameworkElement _control;
         private readonly IContainer _container;
+        private readonly object _queryStringData;
 
         /// <summary>
         /// سازنده کلاس تزریق وابستگی‌ها به ویوو مدل و وهله سازی آن
         /// </summary>
         /// <param name="control">وهله‌ای از شیءایی که باید کار تزریق وابستگی‌ها در آن انجام شود</param>
         /// <param name="container">SM Container</param>
-        public ViewModelFactory(FrameworkElement control, IContainer container)
+        /// <param name="queryStringData">Query String Data</param>
+        public ViewModelFactory(FrameworkElement control, IContainer container, object queryStringData)
         {
             _control = control;
             _container = container;
+            _queryStringData = queryStringData;
         }
 
         /// <summary>
@@ -30,7 +32,7 @@ namespace MyWpfFramework.Common.MVVM
 
         /// <summary>
         /// کار تزریق خودکار وابستگی‌ها و وهله سازی ویوو مدل مرتبط انجام خواهد شد
-        /// </summary>        
+        /// </summary>
         public void WireUp()
         {
             var viewName = _control.GetType().Name;
@@ -56,6 +58,7 @@ namespace MyWpfFramework.Common.MVVM
             if (ViewModelInstance == null) // این صفحه ویوو مدل ندارد
                 return;
 
+            ViewModelInstance.QueryStringData = _queryStringData;
             _control.DataContext = ViewModelInstance;
         }
     }

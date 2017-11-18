@@ -12,7 +12,6 @@ using MyWpfFramework.Common.MVVM;
 using MyWpfFramework.Common.Security;
 using MyWpfFramework.Common.UI;
 using MyWpfFramework.ServiceLayer.Contracts;
-using StructureMap;
 
 namespace MyWpfFramework.Infrastructure.Core
 {
@@ -22,6 +21,9 @@ namespace MyWpfFramework.Infrastructure.Core
     /// </summary>
     public class FrameFactory : Frame
     {
+        public const string QueryString = nameof(QueryString);
+        public const string QueryStringData = nameof(QueryStringData);
+
         /// <summary>
         /// زمان محو شدن فریم جاری و نمایش فریم بعدی
         /// </summary>
@@ -34,9 +36,9 @@ namespace MyWpfFramework.Infrastructure.Core
         /// </summary>
         public IAppContextService AppContextService { set; get; }
 
-        /// <summary>       
-        /// FadeDuration will be used as the duration for Fade Out and Fade In animations        
-        /// </summary>       
+        /// <summary>
+        /// FadeDuration will be used as the duration for Fade Out and Fade In animations
+        /// </summary>
         public Duration FadeDuration
         {
             get { return (Duration)GetValue(FadeDurationProperty); }
@@ -73,7 +75,7 @@ namespace MyWpfFramework.Infrastructure.Core
 
             foreach (var userControl in parent.FindVisualChildren<UserControl>())
             {
-                new ViewModelFactory(userControl, SmObjectFactory.Container).WireUp();
+                new ViewModelFactory(userControl, SmObjectFactory.Container, _queryString).WireUp();
             }
         }
 
@@ -94,7 +96,7 @@ namespace MyWpfFramework.Infrastructure.Core
         private void checkPermissions(NavigatingCancelEventArgs e)
         {
             //اینجا بهترین مکان برای اعمال مباحث اعتبار سنجی ورود به صفحات است
-            //چون قبل از بارگذاری صفحه اعمال می‌شود            
+            //چون قبل از بارگذاری صفحه اعمال می‌شود
             var attribute = PageAuthorizationScanner.GetPageAuthorizationAttribute(e.Uri);
             if (!AppContextService.CanCurrentUserNavigateTo(attribute))
             {
@@ -105,11 +107,11 @@ namespace MyWpfFramework.Infrastructure.Core
 
         private void fadeOut(NavigatingCancelEventArgs e)
         {
-            // if we did not internally initiate the navigation:           
-            //   1. cancel the navigation,            
-            //   2. cache the target,            
-            //   3. disable hittesting during the fade, and            
-            //   4. fade out the current content   
+            // if we did not internally initiate the navigation:
+            //   1. cancel the navigation,
+            //   2. cache the target,
+            //   3. disable hittesting during the fade, and
+            //   4. fade out the current content
             if (Content != null && !_allowDirectNavigation && _contentPresenter != null)
             {
                 e.Cancel = true;
@@ -124,10 +126,10 @@ namespace MyWpfFramework.Infrastructure.Core
 
         private void fadeOutCompleted(object sender, EventArgs e)
         {
-            // after the fade out          
-            //   1. re-enable hittesting        
-            //   2. initiate the delayed navigation       
-            //   3. invoke the FadeIn animation at Loaded priority          
+            // after the fade out
+            //   1. re-enable hittesting
+            //   2. initiate the delayed navigation
+            //   3. invoke the FadeIn animation at Loaded priority
             var animationClock = sender as AnimationClock;
             if (animationClock != null)
             {
@@ -176,7 +178,7 @@ namespace MyWpfFramework.Infrastructure.Core
         {
             //برای ارسال کوئری استرینگ به شکل پیغام مناسب است
             if (_queryString == null) return;
-            Messenger.Default.Send(_queryString, "QueryStringData"); //QueryStringData متفاوت است
+            Messenger.Default.Send(_queryString, QueryStringData); //QueryStringData متفاوت است
             _queryString = null;
         }
 
@@ -194,10 +196,10 @@ namespace MyWpfFramework.Infrastructure.Core
         }
 
         //it will receive urls from MenuViewModel
-        private void registerMessenger() //todo: NavigateTo(string pageName, object arguments)
+        private void registerMessenger()
         {
             Messenger.Default.Register<string>(this, "MyNavigationService", doNavigate);
-            Messenger.Default.Register<object>(this, "QueryString", doloadData);//QueryString متفاوت است
+            Messenger.Default.Register<object>(this, QueryString, doloadData);//QueryString متفاوت است
         }
 
         object _queryString;
@@ -226,10 +228,10 @@ namespace MyWpfFramework.Infrastructure.Core
             _sendMsg.ShowMsg(new AlertConfirmBoxModel
             {
                 ErrorTitle = "تائید هدایت به صفحه‌ای دیگر",
-                Errors = new List<string> 
+                Errors = new List<string>
                     {
                          "در صفحه جاری اطلاعات ذخیره نشده‌ای وجود دارند.",
-                         " آیا مایل هستید ابتدا آنها را ذخیره کنید؟" 
+                         " آیا مایل هستید ابتدا آنها را ذخیره کنید؟"
                     },
                 ShowConfirm = Visibility.Visible,
                 ShowCancel = Visibility.Visible
@@ -277,13 +279,13 @@ namespace MyWpfFramework.Infrastructure.Core
             if (newPage == null)
                 return;
 
-            _currentViewModelFactory = new ViewModelFactory(newPage, SmObjectFactory.Container);
+            _currentViewModelFactory = new ViewModelFactory(newPage, SmObjectFactory.Container, _queryString);
             _currentViewModelFactory.WireUp(); //کار تزریق وابستگی‌ها و وهله سازی ویوو مدل مرتبط انجام خواهد شد
         }
 
         /// <summary>
-        /// get a reference to the frame's content presenter      
-        /// this is the element we will fade in and out    
+        /// get a reference to the frame's content presenter
+        /// this is the element we will fade in and out
         /// </summary>
         public override void OnApplyTemplate()
         {

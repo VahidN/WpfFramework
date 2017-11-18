@@ -54,5 +54,7 @@ namespace MyWpfFramework.Common.MVVM
         /// آیا در حین نمایش صفحه‌ای دیگر باید به کاربر پیغام داد که اطلاعات ذخیره نشده‌ای وجود دارد؟
         /// </summary>
         public abstract bool ViewModelContextHasChanges { get; }
+
+        public object QueryStringData { get; set; }
     }
 }

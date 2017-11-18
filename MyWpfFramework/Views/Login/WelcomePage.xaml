@@ -14,5 +14,8 @@
         <Image Source="Images/welcome.png"
                Width="296" Height="214"
                Stretch="UniformToFill" />
+        <TextBlock Margin="5" HorizontalAlignment="Center"
+                   Text="{Binding Message}"
+                   FontSize="23" FontWeight="Bold" />
     </StackPanel>
 </Page>

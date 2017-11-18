@@ -11,5 +11,10 @@
         /// استفاده خواهد شد
         /// </summary>
         bool ViewModelContextHasChanges { get; }
+
+        /// <summary>
+        /// براي پارامتر از يك صفحه به صفحه‌ي ديگر
+        /// </summary>
+        object QueryStringData { get; set; }
     }
 }

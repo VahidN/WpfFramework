@@ -92,6 +92,7 @@
     <Compile Include="ViewModels\Admin\AddNewUserViewModel.cs" />
     <Compile Include="ViewModels\Common\AboutViewModel.cs" />
     <Compile Include="ViewModels\Login\LoginPageViewModel.cs" />
+    <Compile Include="ViewModels\Login\WelcomePageViewModel.cs" />
     <Compile Include="ViewModels\MainMenuViewModel.cs" />
     <Compile Include="ViewModels\UserInfo\ChangeProfileViewModel.cs" />
     <Compile Include="ViewModel\MainViewModel.cs" />
